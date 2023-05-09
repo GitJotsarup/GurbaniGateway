@@ -13,7 +13,7 @@ class GurbaniGateway(ttk.Frame):
         super().__init__(master)
         self.master = master
         self.master.title("Gurbani Gateway")
-        self.master.configure(background="black")
+        #self.master.configure(background="black")
         self.master.geometry("1920x1080")
 
         self.presenter_window = None
@@ -92,16 +92,17 @@ class GurbaniGateway(ttk.Frame):
         # create the button
         self.presenter_button_clicked = False
         self.presenter_button = ttk.Button(self.master, text="Presenter View", command=self.presenter_button_click)
-        self.presenter_button.place(x=1145, y=50)
+        self.presenter_button.place(x=1145, y=40)
 
         # create checkboxes for display options
         self.display_options = {"punjabi": tk.BooleanVar(value=True),
                                 "transliteration": tk.BooleanVar(value=True),
-                                "english": tk.BooleanVar(value=True)}
+                                "english": tk.BooleanVar(value=True),
+                                "theme": tk.BooleanVar(value=True)}
         
         # create settings button for display options
         self.settings_button = ttk.Button(self.master, text="Settings", command=self.open_settings)
-        self.settings_button.place(x=1180, y=700)
+        self.settings_button.place(x=1150, y=680)
 
         # load dharnas from the JSON file
         with open("dharnas.json", "r", encoding="utf-8") as file:
@@ -305,9 +306,10 @@ class GurbaniGateway(ttk.Frame):
         else:
             # set default options if no saved options found
             display_options = {
-                "punjabi": False,
-                "transliteration": False,
-                "english": True
+                "punjabi": True,
+                "transliteration": True,
+                "english": True,
+                "theme": True
             }
 
         # create the checkboxes and add them to the frame
@@ -319,11 +321,15 @@ class GurbaniGateway(ttk.Frame):
         
         english_var = tk.BooleanVar(value=display_options["english"])
         english_checkbox = ttk.Checkbutton(frame, text="English", variable=english_var, style="TCheckbutton")
-        
+
+        theme_var = tk.BooleanVar(value=display_options["theme"])
+        theme_switch = ttk.Checkbutton(frame, text="Light/Dark", style="Switch.TCheckbutton", variable=theme_var)
+
         # pack the checkboxes
         punjabi_checkbox.pack(anchor="w")
         transliteration_checkbox.pack(anchor="w")
         english_checkbox.pack(anchor="w")
+        theme_switch.pack(anchor="w")
 
         # create buttons to save or cancel changes
         button_frame = ttk.Frame(settings_menu)
@@ -334,10 +340,15 @@ class GurbaniGateway(ttk.Frame):
             display_options = {
                 "punjabi": punjabi_var.get(),
                 "transliteration": transliteration_var.get(),
-                "english": english_var.get()
+                "english": english_var.get(),
+                "theme": theme_var.get()
             }
             with open("display_options.json", "w") as f:
                 json.dump(display_options, f)
+                # if display_options["theme"]:
+                #     settings_menu.style.theme_use("azure-light")
+                # else:
+                #     settings_menu.style.theme_use("azure-dark")
 
         save_button = ttk.Button(button_frame, text="Save", command=lambda: (save_settings(), settings_menu.destroy()))
         save_button.pack(side="left", padx=10)
@@ -353,6 +364,7 @@ class GurbaniGateway(ttk.Frame):
             self.display_options["punjabi"] = punjabi_var.get()
             self.display_options["transliteration"] = transliteration_var.get()
             self.display_options["english"] = english_var.get()
+            self.display_options["theme"] = theme_var.get()
 
         settings_menu.protocol("WM_DELETE_WINDOW", lambda: (save_settings(), settings_menu.destroy()))  # save settings on closing
 
@@ -364,7 +376,13 @@ if __name__ == '__main__':
 
     # Simply set the theme
     root.tk.call("source", "azure.tcl")
-    root.tk.call("set_theme", "dark")
+    if os.path.exists("display_options.json"):
+            with open("display_options.json", "r") as f:
+                display_options = json.load(f)
+    if display_options["theme"]:
+        root.tk.call("set_theme", "dark")
+    else:
+        root.tk.call("set_theme", "light")
     app.pack(fill="both", expand=True)
 
     # Set a minsize for the window, and place it in the middle
