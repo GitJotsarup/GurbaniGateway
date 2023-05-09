@@ -198,11 +198,11 @@ class GurbaniGateway(ttk.Frame):
         selected_transliteration_line = transliteration_lines[line_number - 1]
 
         if display_options["transliteration"]:
-            transliteration_label = ttk.Label(self.dharna_disbox, text=selected_transliteration_line, font=("Helvetica", 12), anchor="center", justify="left", wraplength=self.paned.winfo_width())
+            transliteration_label = ttk.Label(self.dharna_disbox, text=selected_transliteration_line, font=("Helvetica", 13), anchor="center", justify="left", wraplength=self.paned.winfo_width())
             transliteration_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
 
         if display_options["english"]:
-            english_label = ttk.Label(self.dharna_disbox, text=selected_english_line, font=("Helvetica", 12), anchor="center", justify="left", wraplength=self.paned.winfo_width())
+            english_label = ttk.Label(self.dharna_disbox, text=selected_english_line, font=("Helvetica", 13), anchor="center", justify="left", wraplength=self.paned.winfo_width())
             english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
 
         # set the notebook focus to the dharna display box

@@ -49,7 +49,7 @@ proc set_theme {mode} {
 
         ttk::style map . -foreground [list disabled $colors(-disabledfg)]
         ttk::style configure Treeview \
-            -font {"Segoe Ui" 12} \
+            -font {"Segoe Ui" 13} \
             -rowheight 30
 
         option add *font [ttk::style lookup . -font]
@@ -91,7 +91,7 @@ proc set_theme {mode} {
 
         ttk::style map . -foreground [list disabled $colors(-disabledfg)]
         ttk::style configure Treeview \
-            -font {"Segoe Ui" 12} \
+            -font {"Segoe Ui" 13} \
             -rowheight 30
 
         option add *font [ttk::style lookup . -font]
