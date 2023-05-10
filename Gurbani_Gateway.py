@@ -146,8 +146,7 @@ class GurbaniGateway(ttk.Frame):
                         self.lines_listbox.insert("", "end", text=str(i), values=(line,))
                     self.lines_listbox.bind("<<TreeviewSelect>>", self.on_line_select)
                     return dharna
-
-    
+                
     def search_dharna(self):
         """Search for dharnas based on the search bar input and display the results in the listbox"""
 
@@ -223,7 +222,6 @@ class GurbaniGateway(ttk.Frame):
 
         if self.presenter_button_clicked:
             if not self.presenter_window_created:
-                print("created")
                 # create a new window for the presenter view
                 self.presenter_window = tk.Toplevel(self.master)
                 self.presenter_window.style = ttk.Style()
@@ -357,7 +355,7 @@ class GurbaniGateway(ttk.Frame):
         cancel_button.pack(side="right", padx=10)
 
         # set the size and position of the pop-up menu
-        settings_menu.geometry("300x200+{0}+{1}".format(int(self.master.winfo_width()/2 - -350), int(self.master.winfo_height()/2 - -125)))
+        settings_menu.geometry("300x200+{0}+{1}".format(int(self.master.winfo_width()/2 - -350), int(self.master.winfo_height()/2 - -150)))
         settings_menu.resizable(False, False)
 
         def update_display_options():
