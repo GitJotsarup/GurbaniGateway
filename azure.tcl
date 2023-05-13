@@ -47,8 +47,8 @@ proc set_theme {mode} {
 
         ttk::style map . -foreground [list disabled $colors(-disabledfg)]
         ttk::style configure Treeview \
-            -font {"Segoe Ui" 13} \
-            -rowheight 30
+            -font {"GurbaniAkharHeavy" 13} \
+            -rowheight 50
 
         option add *font [ttk::style lookup . -font]
         option add *Menu.selectcolor $colors(-fg)
