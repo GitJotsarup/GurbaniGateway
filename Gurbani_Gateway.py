@@ -354,10 +354,9 @@ class GurbaniGateway(ttk.Frame):
             if display_options["punjabi"]:
                 punjabi_label = ttk.Label(presenter_dharna_disbox, text=selected_punjabi_line, font=("GurbaniAkharHeavy", 50), anchor="center", justify="left")
                 punjabi_label.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
-
-                presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                wrap_length = presenter_window.winfo_width()
-                punjabi_label.configure(wraplength=wrap_length)
+                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                # wrap_length = presenter_window.winfo_width()
+                # punjabi_label.configure(wraplength=wrap_length)
 
             # get the corresponding English and transliteration lines
             english_lines = dharna["english"].split("\n")
@@ -369,18 +368,16 @@ class GurbaniGateway(ttk.Frame):
             if display_options["transliteration"]:
                 transliteration_label = ttk.Label(presenter_dharna_disbox, text=selected_transliteration_line, font=("Helvetica", 25), anchor="center", justify="left")
                 transliteration_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
-
-                presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                wrap_length = presenter_window.winfo_width()
-                transliteration_label.configure(wraplength=wrap_length)
+                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                # wrap_length = presenter_window.winfo_width()
+                # transliteration_label.configure(wraplength=wrap_length)
 
             if display_options["english"]:
                 english_label = ttk.Label(presenter_dharna_disbox, text=selected_english_line, font=("Helvetica", 25), anchor="center", justify="left")
                 english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
-
-                presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                wrap_length = presenter_window.winfo_width()
-                english_label.configure(wraplength=wrap_length)
+                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                # wrap_length = presenter_window.winfo_width()
+                # english_label.configure(wraplength=wrap_length)
 
             # set the notebook focus to the presenter dharna display box
             # presenter_notebook.select(presenter_dharna_disbox)
