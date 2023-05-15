@@ -1,0 +1,33 @@
+Here are some tips and tricks for when you add a new dharna to
+the dharnas.json file:
+
+1 - always add a comma after the ""
+2 - when you want to add a new dharna don't forget to add a comma after
+    the last purple squigly bracket ({})
+3 - here is the template for aa new dharna:
+
+{
+      "title":"",
+      "punjabi":"",
+      "english":"pending",
+      "transliteration":""
+}
+
+4 - if you do not know the english meaning, in the english area write "pending"
+5 - the Title must always be the first line of the dharna
+6 - to find transliteration from punjabi to english write this into chatGPT:
+
+"transliterate this without any punctuation"
+
+with the gurbani either above of below that
+
+7 - to transliterate from english to punjabi write this into chatGPT:
+
+can you transliterate this english into punjabi, the english has no punctuation
+
+with the gurbani either above of below that
+
+8 - after each line of both english or punjabi, make sure you write \n
+this is extremely important
+
+9 - the title must be in punjabi with no | or ||
