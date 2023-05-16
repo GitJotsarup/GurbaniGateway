@@ -235,7 +235,6 @@ class GurbaniGateway(ttk.Frame):
 
         # Split the search input into individual letters
         search_letters = search_input.split() #doesn't exactly work
-        print(search_letters)
 
         # Search for dharnas that match the first letters of each word in the title
         matches = []
@@ -314,7 +313,7 @@ class GurbaniGateway(ttk.Frame):
                 self.presenter_window = tk.Toplevel(self.master)
                 self.presenter_window.style = ttk.Style()
                 self.presenter_window.title("Presenter View")
-                # presenter_window.attributes("-fullscreen", True) # overlay
+                self.presenter_window.state("zoomed")
 
                 presenter_window = self.presenter_window
 
