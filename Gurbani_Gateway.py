@@ -514,7 +514,7 @@ class GurbaniGateway(ttk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    # root.iconbitmap("./AppIcon/AppIcon.png") # this for changing the app's icon
+    root.iconbitmap("./AppIcon/AppIcon.ico") # this for changing the app's icon
     app = GurbaniGateway(master=root)
 
     # Simply set the theme
