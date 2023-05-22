@@ -8,6 +8,7 @@ from PIL import ImageTk, Image
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1) # this line is some crazy trick man, made all the text and pixels clear and support the computer resolution and dpi
 # note that the above does not work on mac and is done automatically on mac
+import webbrowser
 
 REPLACE_DICT = { # keyboard layout for punjabi, using win isn't an option for macOS
     "q": "ੳ",
@@ -162,6 +163,9 @@ class GurbaniGateway(ttk.Frame):
         # create settings button for display options
         self.settings_button = ttk.Button(self.master, text="Settings", command=self.open_settings)
         self.settings_button.place(x=1760*dpi_scale/width_multiplier, y=920*dpi_scale/height_multiplier)
+        # create a feedback button
+        self.settings_button = ttk.Button(self.master, text="Submit Feedback", command=self.email)
+        self.settings_button.place(x=1560*dpi_scale/width_multiplier, y=920*dpi_scale/height_multiplier)
 
         self.show_splash_screen()
 
@@ -189,6 +193,16 @@ class GurbaniGateway(ttk.Frame):
     def hide_splash_screen(self):
         self.splash_label.destroy()
         # Continue with the rest of your app setup and show the main content
+
+    def email(self):
+        subject = "Feedback"
+        body = "Please enter your feedback here."
+
+        # Construct the mailto URL with the subject and body parameters
+        mailto_url = f"mailto:gurbanigateway@gmail.com?subject={subject}&body={body}"
+
+        # Open the default web browser with the mailto URL
+        webbrowser.open(mailto_url)
 
     def move_selection_up(self):
         selected_item = self.lines_listbox.focus()
