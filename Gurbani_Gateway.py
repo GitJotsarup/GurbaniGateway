@@ -189,7 +189,24 @@ class GurbaniGateway(ttk.Frame):
     def hide_splash_screen(self):
         self.splash_label.destroy()
         # Continue with the rest of your app setup and show the main content
-    
+
+    def move_selection_up(self):
+        selected_item = self.lines_listbox.focus()
+        previous_item = self.lines_listbox.prev(selected_item)
+        if previous_item:
+            self.lines_listbox.selection_set(previous_item)
+            self.lines_listbox.see(previous_item)
+            self.lines_listbox.focus(previous_item)  # Set focus to the new selected item
+
+    def move_selection_down(self):
+        selected_item = self.lines_listbox.focus()
+        next_item = self.lines_listbox.next(selected_item)
+        if next_item:
+            self.lines_listbox.selection_set(next_item)
+            self.lines_listbox.see(next_item)
+            self.lines_listbox.focus(next_item)  # Set focus to the new selected item
+
+
     def on_line_select(self, event):
         selection = event.widget.selection()
         if selection:
@@ -274,7 +291,6 @@ class GurbaniGateway(ttk.Frame):
 
         # get the corresponding English and transliteration lines
         english_lines = dharna["english"].split("\n")
-        selected_english_line = english_lines[line_number - 1]
         
         transliteration_lines = dharna["transliteration"].split("\n")
         selected_transliteration_line = transliteration_lines[line_number - 1]
@@ -288,8 +304,11 @@ class GurbaniGateway(ttk.Frame):
             # transliteration_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
 
         if display_options["english"]:
-            english_label = ttk.Label(self.dharna_disbox, text=selected_english_line, font=("Helvetica", 13), anchor="center", justify="left", wraplength=self.paned.winfo_width())
-            english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
+            # get the corresponding English and transliteration lines
+            if english_lines[0] != "pending":
+                selected_english_line = english_lines[line_number - 1]
+                english_label = ttk.Label(self.dharna_disbox, text=selected_english_line, font=("Helvetica", 13), anchor="center", justify="left", wraplength=self.paned.winfo_width())
+                english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
 
         # set the notebook focus to the dharna display box
         # self.notebook.select(self.dharna_disbox)
@@ -319,7 +338,7 @@ class GurbaniGateway(ttk.Frame):
 
                 # add a protocol to the presenter window to handle closing
                 presenter_window.protocol("WM_DELETE_WINDOW", lambda: self.exit_presenter_view(presenter_window))
-
+                
                 # set the presenter_window_created flag to True
                 self.presenter_window_created = True
 
@@ -329,6 +348,10 @@ class GurbaniGateway(ttk.Frame):
 
             # use the existing window
             presenter_window = self.presenter_window
+
+            # Bind the up and down arrow keys to the lines_listbox
+            self.presenter_window.bind("<Up>", lambda event: self.move_selection_up())
+            self.presenter_window.bind("<Down>", lambda event: self.move_selection_down())
 
             for widget in presenter_window.winfo_children():
                 widget.destroy()
@@ -353,30 +376,37 @@ class GurbaniGateway(ttk.Frame):
             if display_options["punjabi"]:
                 punjabi_label = ttk.Label(presenter_dharna_disbox, text=selected_punjabi_line, font=("GurbaniAkharHeavy", 50), anchor="center", justify="left")
                 punjabi_label.grid(row=0, column=0, sticky="nsew", padx=0, pady=0)
-                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                # wrap_length = presenter_window.winfo_width()
-                # punjabi_label.configure(wraplength=wrap_length)
+                
+                # for this you might want to leave it as an option rather than something always on
+                presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                wrap_length = presenter_window.winfo_width()
+                punjabi_label.configure(wraplength=wrap_length)
 
             # get the corresponding English and transliteration lines
             english_lines = dharna["english"].split("\n")
-            selected_english_line = english_lines[line_number - 1]
-            
+
             transliteration_lines = dharna["transliteration"].split("\n")
             selected_transliteration_line = transliteration_lines[line_number - 1]
 
             if display_options["transliteration"]:
                 transliteration_label = ttk.Label(presenter_dharna_disbox, text=selected_transliteration_line, font=("Helvetica", 25), anchor="center", justify="left")
                 transliteration_label.grid(row=1, column=0, sticky="nsew", padx=0, pady=0)
-                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                # wrap_length = presenter_window.winfo_width()
-                # transliteration_label.configure(wraplength=wrap_length)
+
+                # for this you might want to leave it as an option rather than something always on
+                presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                wrap_length = presenter_window.winfo_width()
+                transliteration_label.configure(wraplength=wrap_length)
 
             if display_options["english"]:
-                english_label = ttk.Label(presenter_dharna_disbox, text=selected_english_line, font=("Helvetica", 25), anchor="center", justify="left")
-                english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
-                # presenter_window.update()  # Ensure the window has been updated and its width is accurate
-                # wrap_length = presenter_window.winfo_width()
-                # english_label.configure(wraplength=wrap_length)
+                if english_lines[0] != "pending":
+                    selected_english_line = english_lines[line_number - 1]
+                    english_label = ttk.Label(self.dharna_disbox, text=selected_english_line, font=("Helvetica", 13), anchor="center", justify="left", wraplength=self.paned.winfo_width())
+                    english_label.grid(row=2, column=0, padx=0, pady=0, sticky="nsew")
+                    
+                    # for this you might want to leave it as an option rather than something always on
+                    presenter_window.update()  # Ensure the window has been updated and its width is accurate
+                    wrap_length = presenter_window.winfo_width()
+                    english_label.configure(wraplength=wrap_length)
 
             # set the notebook focus to the presenter dharna display box
             # presenter_notebook.select(presenter_dharna_disbox)
