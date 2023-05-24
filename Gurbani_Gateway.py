@@ -62,6 +62,8 @@ def keyboard_pressed(event):
 
 
 # Saving the python script as '.pyw' file instead of '.py' will remove command window.
+# pyinstaller --onefile --noconsole --add-data="./GurbaniGateway/*;." --icon="./GurbaniGateway/AppIcon/AppIcon.ico" "./GurbaniGateway/Gurbani_Gateway.py"
+# that was to make the executable
 
 class GurbaniGateway(ttk.Frame):
 
@@ -347,6 +349,7 @@ class GurbaniGateway(ttk.Frame):
                 self.presenter_window.style = ttk.Style()
                 self.presenter_window.title("Presenter View")
                 self.presenter_window.state("zoomed")
+                self.presenter_window.iconbitmap("./AppIcon/AppIcon.ico")
 
                 presenter_window = self.presenter_window
 
@@ -514,9 +517,7 @@ class GurbaniGateway(ttk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.iconbitmap("./AppIcon/AppIcon.ico") # this for changing the app's icon
     app = GurbaniGateway(master=root)
-
     # Simply set the theme
     root.tk.call("source", "azure.tcl")
     if os.path.exists("display_options.json"):
@@ -530,31 +531,11 @@ if __name__ == '__main__':
 
     # Set a minsize for the window
     root.update()
+    root.iconbitmap("./AppIcon/AppIcon.ico") # this for changing the app's icon
     root.minsize(root.winfo_width(), root.winfo_height())
     x_cordinate = int((root.winfo_screenwidth() / 2) - (root.winfo_width() / 2))
     y_cordinate = int((root.winfo_screenheight() / 2) - (root.winfo_height() / 2))
     # root.geometry("+{}+{}".format(x_cordinate, y_cordinate-20)) # this line places the tab in the middle i find it quite annoying
-    
-    ### FUTURE CODE
-    # root.overrideredirect(True) # removes the existing title bar
-
-    # def move_app(e):
-    #     root.geometry(f'+{e.x_root}+{e.y_root}')
-
-    # # create a custon title bar
-    # title_bar = Frame(root, bg="black", relief="raised", bd=0)
-    # title_bar.pack(expand=1, fill=X)
-    # # bind the titlebar
-    # title_bar.bind("<B1-Motion>", move_app)
-
-    # # close button
-    # close_label = Label(title_bar, text="  X  ", bg="black", fg= "white")
-    # close_label.pack(side=RIGHT, pady=4)
-
-
-    # # create the label for the title bar 
-    # title_label = Label(title_bar, text="Gurbani Gateway", bg="black", fg="white")
-    # title_label.pack(side=LEFT, pady=4)
 
 
     app.mainloop()
