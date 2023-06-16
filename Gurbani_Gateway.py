@@ -139,17 +139,17 @@ class GurbaniGateway(ttk.Frame):
         self.notebook.add(self.dharna_disbox, text="Dharna")
         # add text widget to the frame
         self.dharna_text = tk.Text(self.dharna_disbox, wrap="word", bg='black', state='disabled')
-        self.dharna_text.grid(row=0, column=0, sticky="nsew")
+        # self.dharna_text.grid(row=0, column=0, sticky="nsew")
 
         self.presenter_notebook = None
         self.presenter_dharna_disbox = None
 
         # add scrollbars to the text widget
-        self.dharna_vscrollbar = ttk.Scrollbar(self.dharna_disbox, orient="vertical", command=self.dharna_text.yview)
-        self.dharna_vscrollbar.grid(row=0, column=1, sticky="ns")
-        self.dharna_hscrollbar = ttk.Scrollbar(self.dharna_disbox, orient="horizontal", command=self.dharna_text.xview)
-        self.dharna_hscrollbar.grid(row=1, column=0, sticky="ew")
-        self.dharna_text.configure(yscrollcommand=self.dharna_vscrollbar.set, xscrollcommand=self.dharna_hscrollbar.set)
+        # self.dharna_vscrollbar = ttk.Scrollbar(self.dharna_disbox, orient="vertical", command=self.dharna_text.yview)
+        # self.dharna_vscrollbar.grid(row=0, column=1, sticky="ns")
+        # self.dharna_hscrollbar = ttk.Scrollbar(self.dharna_disbox, orient="horizontal", command=self.dharna_text.xview)
+        # self.dharna_hscrollbar.grid(row=1, column=0, sticky="ew")
+        # self.dharna_text.configure(yscrollcommand=self.dharna_vscrollbar.set, xscrollcommand=self.dharna_hscrollbar.set)
 
         # create the button
         self.presenter_button_clicked = False
