@@ -3,7 +3,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 import os
-# from indicnlp import common, loader, transliterate
+from trie import search_dharnas
 from PIL import ImageTk, Image
 from ctypes import windll
 windll.shcore.SetProcessDpiAwareness(1) # this line is some crazy trick man, made all the text and pixels clear and support the computer resolution and dpi
@@ -264,22 +264,12 @@ class GurbaniGateway(ttk.Frame):
         self.results_listbox.delete(*self.results_listbox.get_children())
 
         # Get the search bar input
-        search_input = self.search_bar.get().lower()
+        search_input = self.search_bar.get() #.lower()
 
-        # Split the search input into individual letters
-        search_letters = search_input.split() #doesn't exactly work
+        # Call the search_dharnas function
+        matching_dharnas = search_dharnas(self.dharnas, search_input)
 
-        # Search for dharnas that match the first letters of each word in the title
-        matches = []
-        for dharna in self.dharnas:
-            title_words = dharna["title"].lower().split()
-            first_letters = [word[0] for word in title_words]
-            if all(letter in first_letters for letter in search_letters):
-                matches.append(dharna)
-
-        # Display the search results in the listbox
-        for dharna in matches:
-            title = dharna["title"]
+        for title in matching_dharnas:
             self.results_listbox.insert("", "end", text="", values=(title,))
 
 
